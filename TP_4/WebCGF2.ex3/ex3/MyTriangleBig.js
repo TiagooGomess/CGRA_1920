@@ -12,6 +12,10 @@ class MyTriangleBig extends CGFobject {
         this.vertices = [
             -2, 0, 0,
             2, 0, 0,
+            0, 2, 0,
+
+            -2, 0, 0,
+            2, 0, 0,
             0, 2, 0
         ];
         
@@ -19,6 +23,16 @@ class MyTriangleBig extends CGFobject {
             0, 1, 2,
             2, 1, 0
         ];
+
+        this.normals = [
+			0, 0, 1,
+			0, 0, 1,
+            0, 0, 1,
+            
+            0, 0, -1,
+			0, 0, -1,
+			0, 0, -1
+		];
 
         this.primitiveType = this.scene.gl.TRIANGLES;
 

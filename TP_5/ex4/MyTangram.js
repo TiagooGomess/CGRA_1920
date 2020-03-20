@@ -9,16 +9,16 @@ class MyTangram extends CGFobject {
 
         this.initMaterials(this.scene);
         this.diamond = new MyDiamond(this.scene);
-        this.myTriangle = new MyTriangle(this.scene);
+        this.myTriangle = new MyTriangle(this.scene, 'pink');
         this.myBigTriangle = new MyTriangleBig(this.scene);
         this.myParallelogram = new MyParallelogram(this.scene);
-        this.myTriangle2 = new MyTriangle(this.scene); 
-        this.mySmallTriangle = new MyTriangleSmall(this.scene);
-        this.mySmallTriangle2 = new MyTriangleSmall(this.scene);
+        this.myTriangle2 = new MyTriangle(this.scene, 'blue');
+        this.mySmallTriangle = new MyTriangleSmall(this.scene, 'blue');
+        this.mySmallTriangle2 = new MyTriangleSmall(this.scene, 'red');
     }
 
     initMaterials(scene) {
-        this.green = new CGFappearance(scene);
+/*         this.green = new CGFappearance(scene);
         this.green.setAmbient(0, 1, 0, 1);
         this.green.setDiffuse(0, 1, 0, 1);
         this.green.setSpecular(0, 1, 0, 1);
@@ -58,11 +58,17 @@ class MyTangram extends CGFobject {
         this.pink.setAmbient(1, 0.5, 0.8, 1);
         this.pink.setDiffuse(1, 0.5, 0.8, 1);
         this.pink.setSpecular(1, 0.5, 0.8, 1);
-        this.pink.setShininess(0);
+        this.pink.setShininess(0); */
 
-        this.diamondAppearance = new CGFappearance(scene);
-        this.diamondAppearance.loadTexture('images/tangram.png');
-        this.diamondAppearance.setTextureWrap('REPEAT','REPEAT');
+        this.tangramTexture = new CGFappearance(scene);
+        this.tangramTexture.setAmbient(0.5, 0.5, 0.5, 1);
+        this.tangramTexture.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.tangramTexture.setSpecular(0.2, 0.2, 0.2, 1);
+        this.tangramTexture.setShininess(5);
+        this.tangramTexture.loadTexture('images/tangram.png');
+        this.tangramTexture.setTextureWrap('REPEAT','REPEAT');
+
+        
     }
 
     display() {
@@ -79,7 +85,7 @@ class MyTangram extends CGFobject {
                         0.0, 0.0, 1.0, 0.0,
                         0.0, 0.0, 0.0, 1.0];
         this.scene.multMatrix(rotationZ);
-        this.diamondAppearance.apply();
+        this.tangramTexture.apply();
         this.diamond.display();
         this.scene.popMatrix();
 
@@ -87,7 +93,8 @@ class MyTangram extends CGFobject {
         this.scene.translate(0, 2, 0);
         this.scene.rotate(-Math.PI / 2, 0, 0, 1);
         //this.scene.setDiffuse(0.7, 0.3, 0, 1);
-        this.orange.apply();
+        //this.orange.apply();
+        this.tangramTexture.apply();
         this.myBigTriangle.display();
         this.scene.popMatrix();
 
@@ -96,7 +103,8 @@ class MyTangram extends CGFobject {
         this.scene.scale(-1, 1, 1);
         this.scene.rotate(-Math.PI / 2, 0, 0, 1);
         //this.scene.setDiffuse(0.5, 0.5, 0, 1);
-        this.yellow.apply();
+        //this.yellow.apply();
+        this.tangramTexture.apply();
         this.myParallelogram.display();
         this.scene.popMatrix();
 
@@ -104,7 +112,8 @@ class MyTangram extends CGFobject {
         this.scene.rotate(-Math.PI / 4, 0, 0, 1);
         this.scene.translate(1,1,0);
         //this.scene.setDiffuse(1, 0.753, 0.796, 1);
-        this.pink.apply();
+        //this.pink.apply();
+        this.tangramTexture.apply();
         this.myTriangle.display();
         this.scene.popMatrix();
 
@@ -114,7 +123,8 @@ class MyTangram extends CGFobject {
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
         this.scene.translate(1, 1, 0);
         //this.scene.setDiffuse(0, 0, 1, 1);
-        this.blue.apply();
+        //this.blue.apply();
+        this.tangramTexture.apply();
         this.myTriangle2.display();
         this.scene.popMatrix();
 
@@ -122,7 +132,8 @@ class MyTangram extends CGFobject {
         this.scene.translate(-1.2, -2.2, 0);
         this.scene.rotate(-Math.PI * (3/4), 0, 0, 1);
         //this.scene.setDiffuse(0.52, 0, 0.52, 1);
-        this.purple.apply();
+        //this.purple.apply();
+        this.tangramTexture.apply();
         this.mySmallTriangle.display();
         this.scene.popMatrix();
 
@@ -130,7 +141,8 @@ class MyTangram extends CGFobject {
         this.scene.translate(1.4, -1.5, 0);
         this.scene.rotate(-Math.PI / 2, 0, 0, 1);
         //this.scene.setDiffuse(1, 0, 0, 1);
-        this.red.apply();
+        //this.red.apply();
+        this.tangramTexture.apply();
         this.mySmallTriangle2.display();
         this.scene.popMatrix();
     }

@@ -4,11 +4,11 @@
  * @param scene - Reference to MyScene object
  */
 class MyTriangle extends CGFobject {
-    constructor(scene) {
+    constructor(scene, color) {
         super(scene);
-        this.initBuffers();
+        this.initBuffers(color);
     }
-    initBuffers() {
+    initBuffers(color) {
         this.vertices = [
             -1, -1, 0,  // 0
             1, -1, 0,  // 1
@@ -33,9 +33,23 @@ class MyTriangle extends CGFobject {
             0, 0, -1,
 			0, 0, -1,
 			0, 0, -1
-		];
-
-
+        ];
+        
+        if (color == 'pink') {
+            this.texCoords = [
+                0, 1,
+                0.5, 1,
+                0, 0.5
+            ];
+        }
+        else if (color == 'blue') {
+            this.texCoords = [
+                0.5, 0.5,
+                1, 0,
+                0, 0
+            ];
+        }
+        
         this.primitiveType = this.scene.gl.TRIANGLES;
 
 		this.initGLBuffers();

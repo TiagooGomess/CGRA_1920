@@ -32,7 +32,13 @@ class MyTriangleBig extends CGFobject {
             0, 0, -1,
 			0, 0, -1,
 			0, 0, -1
-		];
+        ];
+        
+        this.texCoords = [
+            1, 1,
+            1, 0,
+            0.5, 0.5
+        ];
 
         this.primitiveType = this.scene.gl.TRIANGLES;
 

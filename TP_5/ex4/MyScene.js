@@ -49,6 +49,7 @@ class MyScene extends CGFscene {
         this.wrapS = 0;
         this.wrapT = 0;
         
+        this.displayQuad = false;
         this.displayTangram = true;
 
         this.textures = [this.texture1, this.texture2, this.texture3];
@@ -116,15 +117,18 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        this.quadMaterial.apply();
+        if (this.displayQuad) {
 
-        // Default texture filtering in WebCGF is LINEAR. 
-        // Uncomment next line for NEAREST when magnifying, or 
-        // add a checkbox in the GUI to alternate in real time
-        
-        // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+            this.quadMaterial.apply();
 
-        this.quad.display();
+            // Default texture filtering in WebCGF is LINEAR. 
+            // Uncomment next line for NEAREST when magnifying, or 
+            // add a checkbox in the GUI to alternate in real time
+            
+            // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+
+            this.quad.display();
+        }
 
         if (this.displayTangram)
             this.myTangram.display();

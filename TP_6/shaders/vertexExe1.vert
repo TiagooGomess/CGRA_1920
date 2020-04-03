@@ -13,13 +13,6 @@ uniform mat4 uNMatrix;
 varying vec4 coords;
 
 void main() {
-
-
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-
-	//normal = vec4(aVertexNormal, 1.0);
-
-	//coords=vertex/10.0;
     coords = gl_Position;
 }
-

@@ -56,6 +56,8 @@ class ShaderScene extends CGFscene {
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
 		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
+		this.texture3 = new CGFtexture(this, "textures/waterMap.jpg");
+		this.texture4 = new CGFtexture(this, "textures/waterTex.jpg");
 
 		// shaders initialization
 
@@ -71,7 +73,8 @@ class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
 			new CGFshader(this.gl, "shaders/vertexExe1.vert", "shaders/fragmentExe1.frag"),
 			new CGFshader(this.gl, "shaders/vertexExe2.vert", "shaders/fragmentExe2.frag"),
-			new CGFshader(this.gl, "shaders/vertexExe3.vert", "shaders/fragmentExe3.frag")
+			new CGFshader(this.gl, "shaders/vertexExe3.vert", "shaders/fragmentExe3.frag"),
+			new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag")	
 		];
 
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
@@ -79,6 +82,9 @@ class ShaderScene extends CGFscene {
 		this.testShaders[5].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ timeFactor: 0 });
+		this.testShaders[12].setUniformsValues({ uSampler2: 2});
+		this.testShaders[12].setUniformsValues({ uSampler3: 3});
+		this.testShaders[12].setUniformsValues({ timeFactor: 0});
 
 
 		// Shaders interface variables
@@ -95,7 +101,8 @@ class ShaderScene extends CGFscene {
 			'Convolution': 8,
 			'Teapot Exe_1': 9,
 			'Teapot Exe_2': 10,
-			'Teapot Exe_3': 11
+			'Teapot Exe_3': 11,
+			'Water': 12
 		};
 
 		// shader code panels references
@@ -180,6 +187,8 @@ class ShaderScene extends CGFscene {
 			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 1000 });
 		if (this.selectedExampleShader == 10)
 			this.testShaders[10].setUniformsValues({ timeFactor: t / 100 % 1000 });
+		if(this.selectedExampleShader == 12)
+			this.testShaders[12].setUniformsValues({ timeFactor: t / 100 % 1000 });
 	}
 
 	// main display function
@@ -211,6 +220,8 @@ class ShaderScene extends CGFscene {
 
 		// bind additional texture to texture unit 1
 		this.texture2.bind(1);
+		this.texture3.bind(2);
+		this.texture4.bind(3);
 
 		if (this.selectedObject==0) {
 			// teapot (scaled and rotated to conform to our axis)

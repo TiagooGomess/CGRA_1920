@@ -85,15 +85,16 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         //This sphere does not have defined texture coordinates
-        // this.incompleteSphere.display();
-        this.defaultAppearance.apply();
+        //this.incompleteSphere.display();
+        this.defaultAppearance.apply(); 
         
         if (this.displayCilinder)
             this.cylinder.display();
 
+        //This sphere have defined texture coordinates
         if (this.displaySphere)
             this.sphere.display();
-            
+
         // ---- END Primitive drawing section
     }
 }

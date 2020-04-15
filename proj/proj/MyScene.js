@@ -28,17 +28,18 @@ class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.cylinder = new MyCylinder(this, 30);
         this.sphere = new MySphere(this, 50, 50);
+        this.cube = new MyCubeQuad(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.displayCilinder = true;
+        this.displayCilinder = false;
         this.displaySphere = false;
 
         // Appearance
         this.defaultAppearance = new CGFappearance(this);
-        this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setAmbient(0.4, 0.6, 1.0, 1.0);
+        this.defaultAppearance.setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.defaultAppearance.setSpecular(0.42, 0.6, 0.8, 1.0);
         this.defaultAppearance.setShininess(10.0);
         this.defaultAppearance.loadTexture('images/earth.jpg');
         this.defaultAppearance.setTextureWrap('REPEAT','REPEAT');
@@ -56,7 +57,7 @@ class MyScene extends CGFscene {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
-        this.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.setAmbient(0.4, 0.6, 1.0, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);        
@@ -94,6 +95,8 @@ class MyScene extends CGFscene {
         //This sphere have defined texture coordinates
         if (this.displaySphere)
             this.sphere.display();
+        
+        this.cube.display();
 
         // ---- END Primitive drawing section
     }

@@ -29,11 +29,13 @@ class MyScene extends CGFscene {
         this.cylinder = new MyCylinder(this, 30);
         this.sphere = new MySphere(this, 50, 50);
         this.cube = new MyCubeQuad(this);
+        this.vehicle = new MyVehicle(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.displayCilinder = false;
         this.displaySphere = false;
+        this.displayVehicle = true;
 
         // Appearance
         this.defaultAppearance = new CGFappearance(this);
@@ -95,6 +97,9 @@ class MyScene extends CGFscene {
         //This sphere have defined texture coordinates
         if (this.displaySphere)
             this.sphere.display();
+
+        if (this.displayVehicle)
+            this.vehicle.display();
         
         this.cube.display();
 

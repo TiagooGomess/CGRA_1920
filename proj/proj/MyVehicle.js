@@ -6,7 +6,6 @@
 class MyVehicle extends CGFobject {
 	constructor(scene) {
         super(scene);
-        
         this.pyramid = new MyPyramid(this.scene, 7, 7);
     }
 

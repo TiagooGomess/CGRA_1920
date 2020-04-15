@@ -6,6 +6,7 @@ class MyScene extends CGFscene {
     constructor() {
         super();
     }
+    
     init(application) {
         super.init(application);
         this.initCameras();
@@ -34,6 +35,8 @@ class MyScene extends CGFscene {
         this.displayAxis = true;
         this.displayCilinder = false;
         this.displaySphere = false;
+        this.skyBackground = true;
+        this.darkBackground = false;
 
         // Appearance
         this.defaultAppearance = new CGFappearance(this);
@@ -45,7 +48,6 @@ class MyScene extends CGFscene {
         this.defaultAppearance.setTextureWrap('REPEAT','REPEAT');
         this.defaultAppearance.apply();
         
-
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -96,7 +98,10 @@ class MyScene extends CGFscene {
         if (this.displaySphere)
             this.sphere.display();
         
-        this.cube.display();
+        if(this.skyBackground)
+            this.cube.display();
+        else if(this.darkBackground)
+            this.cube.display();
 
         // ---- END Primitive drawing section
     }

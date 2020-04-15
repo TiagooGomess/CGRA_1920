@@ -20,14 +20,13 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
         this.gui.add(this.scene, 'displayCilinder').name('Display Cilinder');
         this.gui.add(this.scene, 'displaySphere').name('Display Sphere');
-        this.gui.add(this.scene, 'displayVehicle').name('Display Vehicle');
-
-        this.initKeys();
+        this.gui.add(this.scene, 'skyBackground').name('Sky Background');
+        this.gui.add(this.scene, 'darkBackground').name('Dark Background');
 
         return true;
     }
 
-    initKeys() {
+    /*initKeys() {
         // create reference from the scene to the GUI
         this.scene.gui = this;
 
@@ -52,7 +51,7 @@ class MyInterface extends CGFinterface {
     isKeyPressed(keyCode) {
         // returns true if a key is marked as pressed, false otherwise
         return this.activeKeys[keyCode] || false;
-    }
+    }*/
 
     
 }

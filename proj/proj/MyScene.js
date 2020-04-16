@@ -50,6 +50,10 @@ class MyScene extends CGFscene {
         this.defaultAppearance.setTextureWrap('REPEAT','REPEAT');
         this.defaultAppearance.apply();
 
+
+        this.speedFactor = 1;
+        this.scaleFactor = 1;
+
         
         
     }
@@ -72,6 +76,7 @@ class MyScene extends CGFscene {
     update(t){
         //To be done...
         this.checkKeys();
+        this.vehicle.update();
     }
     display() {
         // ---- BEGIN Background, camera and axis setup
@@ -95,6 +100,13 @@ class MyScene extends CGFscene {
         //This sphere does not have defined texture coordinates
         //this.incompleteSphere.display();
         this.defaultAppearance.apply(); 
+
+        var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+            0.0, this.scaleFactor, 0.0, 0.0,
+            0.0, 0.0, this.scaleFactor, 0.0,
+            0.0, 0.0, 0.0, 1.0];
+
+        this.multMatrix(sca);
         
         if (this.displayCilinder)
             this.cylinder.display();
@@ -115,9 +127,10 @@ class MyScene extends CGFscene {
     }
 
     checkKeys() {
-        var text = "Keys pressed: ";
-        var keysPressed = false;
+        //var text = "Keys pressed: ";
+        //var keysPressed = false;
 
+        /*
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
             text += " W ";
@@ -132,5 +145,27 @@ class MyScene extends CGFscene {
         if (keysPressed) {
             console.log(text);
         } 
+        */
+
+        if (this.gui.isKeyPressed("KeyW")) {
+            this.vehicle.accelerate(0.1*this.speedFactor);
+        }
+
+        if (this.gui.isKeyPressed("KeyS")) {
+            this.vehicle.accelerate(-0.1*this.speedFactor);
+        }
+
+        if (this.gui.isKeyPressed("KeyA")) {
+            this.vehicle.turn(3);
+        }
+
+        if (this.gui.isKeyPressed("KeyD")) {
+            this.vehicle.turn(-3);
+        }
+
+        if (this.gui.isKeyPressed("KeyR")) {
+            this.vehicle.reset();
+        }
+
     }
 }

@@ -115,7 +115,7 @@ class MyScene extends CGFscene {
     }
 
     checkKeys() {
-        /*var text = "Keys pressed: ";
+        var text = "Keys pressed: ";
         var keysPressed = false;
 
         // Check for key codes e.g. in https://keycode.info/
@@ -131,7 +131,6 @@ class MyScene extends CGFscene {
 
         if (keysPressed) {
             console.log(text);
-        }*/
-            
+        } 
     }
 }

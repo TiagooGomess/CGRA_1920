@@ -9,14 +9,17 @@ class MyVehicle extends CGFobject {
         //this.pyramid = new MyPyramid(this.scene, 7, 7);
         this.sphere = new MySphere(this.scene, 20, 20);
         this.trapeze = new MyTrapeze(this.scene);
-        this.cylinder = new MyCylinder(this.scene, 20);
-        this.cylinderBase = new MySphere(this.scene, 20, 20);
+        this.cylinder = new MyCylinder(this.scene, 10);
+        this.cylinderBase = new MySphere(this.scene, 10, 10);
+        this.propellerSupport = new MySphere(this.scene, 10, 10);
+        this.propeller = new MySphere(this.scene, 10, 10);
 
         this.angleYY = 0;
         this.speed = 0;
         this.x = 0;
         this.y = 0;
         this.z = 0;
+        this.anglePropeller = 0;
     }
 
     display() {
@@ -38,8 +41,6 @@ class MyVehicle extends CGFobject {
         this.scene.scale(1, 1, 2); // scale the sphere so it looks like an airship
         this.sphere.display();
         this.scene.popMatrix();
-
-        
 
         // -------------- TRAPEZES --------------
         this.scene.pushMatrix(); 
@@ -68,7 +69,7 @@ class MyVehicle extends CGFobject {
 
         // -------------- CYLINDER --------------
         this.scene.pushMatrix();
-
+        
         this.scene.pushMatrix();
         this.scene.translate(0, -1.2, 0.8);
         this.scene.scale(0.2, 0.2, 0.2);
@@ -81,11 +82,43 @@ class MyVehicle extends CGFobject {
         this.cylinderBase.display(); // base de trás do cilindro
         this.scene.popMatrix();
 
+        this.scene.pushMatrix();
+        this.scene.translate(-0.3, -1.2, -0.8);
+        this.scene.scale(0.1, 0.1, 0.1);
+        this.scene.scale(1, 1, 3);
+        this.propellerSupport.display(); // suporte da hélice esquerda
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.3, -1.2, -0.8);
+        this.scene.scale(0.1, 0.1, 0.1);
+        this.scene.scale(1, 1, 3);
+        this.propellerSupport.display(); // suporte da hélice direita
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.3, -1.2, -1.08);
+        this.scene.rotate(Math.PI/2 + this.anglePropeller, 0, 0, 1);
+        this.scene.rotate(Math.PI/2, 0, 1, 0);
+        this.scene.scale(0.02, 0.02, 0.02);
+        this.scene.scale(1, 1, 8);
+        this.propeller.display(); // hélice da direita
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-0.3, -1.2, -1.08);
+        this.scene.rotate(Math.PI/2 + this.anglePropeller, 0, 0, 1);
+        this.scene.rotate(Math.PI/2, 0, 1, 0);
+        this.scene.scale(0.02, 0.02, 0.02);
+        this.scene.scale(1, 1, 8);
+        this.propeller.display(); // hélice da esquerda
+        this.scene.popMatrix();
+
         this.scene.translate(0, -1.2, -0.8);
         this.scene.scale(0.2, 0.2, 0.2);
         this.scene.scale(1, 1, 8);
         this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.cylinder.display();
+        this.cylinder.display(); // main cylinder
         this.scene.popMatrix();
         // --------------------------------------
 
@@ -106,6 +139,7 @@ class MyVehicle extends CGFobject {
     
     accelerate(val) {
         this.speed = val;
+        this.anglePropeller += 0.5;
     }
 
     reset() {

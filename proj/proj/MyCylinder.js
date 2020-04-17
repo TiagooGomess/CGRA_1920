@@ -22,11 +22,7 @@ class MyCylinder extends CGFobject {
             angle += ((360 / this.nDivs) * Math.PI) / 180; // Converting to radians
         }
 
-        // -- Repeat 1st line of vertices. Useful for texture
        
-
-        console.log(this.vertices);
-
         // Generate Indices -- Per face (non-including the last-one)
         this.indices = [];
         for (var i = 0; (i + 3) < this.nDivs * 2; i += 2) {
@@ -39,11 +35,11 @@ class MyCylinder extends CGFobject {
 
         // Generate indices -- Per face (last one)
         var aux = this.indices[this.indices.length - 3 ];
-        console.log(aux);
 
         this.indices.push(aux, 1, aux - 1);
         this.indices.push(aux - 1, 1, 0);
 
+        // -- Repeat 1st line of vertices. Useful for texture
         this.vertices.push(1, 0, 0);
         this.vertices.push(1, 1, 0);
         this.normals.push(1, 0, 0);
@@ -69,8 +65,6 @@ class MyCylinder extends CGFobject {
         
         this.texCoords.push(0, 1);
         this.texCoords.push(0, 0); 
-
-        console.log(this.texCoords);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();

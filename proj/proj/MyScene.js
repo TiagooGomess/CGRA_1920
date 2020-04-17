@@ -50,7 +50,6 @@ class MyScene extends CGFscene {
         this.defaultAppearance.setTextureWrap('REPEAT','REPEAT');
         this.defaultAppearance.apply();
 
-
         this.speedFactor = 1;
         this.scaleFactor = 1;
 

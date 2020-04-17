@@ -6,7 +6,8 @@
 class MyVehicle extends CGFobject {
 	constructor(scene) {
         super(scene);
-        this.pyramid = new MyPyramid(this.scene, 7, 7);
+        //this.pyramid = new MyPyramid(this.scene, 7, 7);
+        this.sphere = new MySphere(this.scene, 20, 20);
         
         this.angleYY = 0;
         this.speed = 0;
@@ -24,9 +25,13 @@ class MyVehicle extends CGFobject {
         this.scene.rotate(this.angleYY*Math.PI/180.0, 0, 1, 0);
 
         // transformações iniciais, para meter a pirâmide na origem, a opontar no eixo positivo dos zz
-        this.scene.translate(0, 0, -0.5);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.pyramid.display();
+        //this.scene.translate(0, 0, -0.5);
+        //this.scene.rotate(Math.PI/2, 1, 0, 0);
+        //this.pyramid.display();
+        
+        this.scene.translate(0, 10, 0);
+        this.scene.scale(1, 1, 2);
+        this.sphere.display();
         this.scene.popMatrix();
 
     }

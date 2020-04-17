@@ -20,7 +20,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        this.setUpdatePeriod(1); // 50
+        this.setUpdatePeriod(1);
         
         this.enableTextures(true);
 
@@ -63,7 +63,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 30, 15), vec3.fromValues(0, 10, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.4, 0.6, 1.0, 1.0);
@@ -155,11 +155,11 @@ class MyScene extends CGFscene {
         }
 
         if (this.gui.isKeyPressed("KeyA")) {
-            this.vehicle.turn(3);
+            this.vehicle.turn(2);
         }
 
         if (this.gui.isKeyPressed("KeyD")) {
-            this.vehicle.turn(-3);
+            this.vehicle.turn(-2);
         }
 
         if (this.gui.isKeyPressed("KeyR")) {

@@ -20,6 +20,8 @@ class MyVehicle extends CGFobject {
         this.y = 0;
         this.z = 0;
         this.anglePropeller = 0;
+        this.angleTrapeze = 0;
+        this.TRAPEZE_MAX_ANGLE = Math.PI/4;
     }
 
     display() {
@@ -36,7 +38,7 @@ class MyVehicle extends CGFobject {
         //this.scene.rotate(Math.PI/2, 1, 0, 0);
         //this.pyramid.display();
         
-        //this.scene.translate(0, 10, 0);
+        this.scene.translate(0, 10, 0);
         this.scene.pushMatrix();
         this.scene.scale(1, 1, 2); // scale the sphere so it looks like an airship
         this.sphere.display();
@@ -45,11 +47,13 @@ class MyVehicle extends CGFobject {
         // -------------- TRAPEZES --------------
         this.scene.pushMatrix(); 
         this.scene.translate(0, 0.7, -2);
+        this.scene.rotate(-this.angleTrapeze, 0, 1, 0);
         this.trapeze.display(); // trapeze vertical up
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0, -0.7, -2);
+        this.scene.rotate(-this.angleTrapeze, 0, 1, 0);
         this.scene.rotate(Math.PI, 0, 0, 1);
         this.trapeze.display(); // trapeze vertical down
         this.scene.popMatrix();
@@ -136,11 +140,18 @@ class MyVehicle extends CGFobject {
 
     turn(val) {
         this.angleYY += val;
+        if (this.angleTrapeze + 0.01*val <= this.TRAPEZE_MAX_ANGLE && this.angleTrapeze + 0.01*val >= -this.TRAPEZE_MAX_ANGLE)
+            this.angleTrapeze += 0.01*val;
     }
     
     accelerate(val) {
         this.speed += 0.01*val;
-        
+        if (this.angleTrapeze > 0) {
+            this.angleTrapeze -= 0.01;
+        }
+        if (this.angleTrapeze < 0) {
+            this.angleTrapeze += 0.01;
+        }
     }
 
     reset() {
@@ -150,5 +161,6 @@ class MyVehicle extends CGFobject {
         this.angleYY = 0;
         this.speed = 0;
         this.anglePropeller = 0;
+        this.angleTrapeze = 0;
     }
 }

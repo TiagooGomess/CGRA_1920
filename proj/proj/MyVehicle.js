@@ -131,6 +131,7 @@ class MyVehicle extends CGFobject {
     update() {
         this.z += this.speed * Math.cos(this.angleYY*Math.PI/180.0);
         this.x += this.speed * Math.sin(this.angleYY*Math.PI/180.0);
+        this.anglePropeller += this.speed;
     }
 
     turn(val) {
@@ -138,8 +139,8 @@ class MyVehicle extends CGFobject {
     }
     
     accelerate(val) {
-        this.speed = val;
-        this.anglePropeller += val;
+        this.speed += 0.01*val;
+        
     }
 
     reset() {

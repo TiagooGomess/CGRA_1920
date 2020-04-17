@@ -139,7 +139,7 @@ class MyVehicle extends CGFobject {
     
     accelerate(val) {
         this.speed = val;
-        this.anglePropeller += 0.5;
+        this.anglePropeller += val;
     }
 
     reset() {
@@ -148,5 +148,6 @@ class MyVehicle extends CGFobject {
         this.z = 0;
         this.angleYY = 0;
         this.speed = 0;
+        this.anglePropeller = 0;
     }
 }

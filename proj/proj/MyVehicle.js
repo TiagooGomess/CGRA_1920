@@ -8,7 +8,8 @@ class MyVehicle extends CGFobject {
         super(scene);
         //this.pyramid = new MyPyramid(this.scene, 7, 7);
         this.sphere = new MySphere(this.scene, 20, 20);
-        
+        this.trapeze = new MyTrapeze(this.scene);
+
         this.angleYY = 0;
         this.speed = 0;
         this.x = 0;
@@ -21,6 +22,7 @@ class MyVehicle extends CGFobject {
 
         this.scene.pushMatrix();
 
+        // turn and accelerate
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.angleYY*Math.PI/180.0, 0, 1, 0);
 
@@ -29,10 +31,42 @@ class MyVehicle extends CGFobject {
         //this.scene.rotate(Math.PI/2, 1, 0, 0);
         //this.pyramid.display();
         
-        this.scene.translate(0, 10, 0);
-        this.scene.scale(1, 1, 2);
+        //this.scene.translate(0, 10, 0);
+        this.scene.pushMatrix();
+        this.scene.scale(1, 1, 2); // scale the sphere so it looks like an airship
         this.sphere.display();
         this.scene.popMatrix();
+
+        
+
+        // -------------- TRAPEZES --------------
+        this.scene.pushMatrix(); 
+        this.scene.translate(0, 0.7, -2);
+        this.trapeze.display(); // trapeze vertical up
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, -0.7, -2);
+        this.scene.rotate(Math.PI, 0, 0, 1);
+        this.trapeze.display(); // trapeze vertical down
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-0.5, 0, -2);
+        this.scene.rotate(Math.PI/2, 0, 0, 1);
+        this.trapeze.display(); // trapeze horizontal left
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.5, 0, -2);
+        this.scene.rotate(-Math.PI/2, 0, 0, 1);
+        this.trapeze.display(); // trapeze horizontal right
+        this.scene.popMatrix();
+        // --------------------------------------
+
+        this.scene.popMatrix();
+
+        
 
     }
 

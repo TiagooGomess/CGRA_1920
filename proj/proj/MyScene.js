@@ -37,8 +37,8 @@ class MyScene extends CGFscene {
         this.displayCilinder = false;
         this.displaySphere = false;
         this.displayVehicle = true;
-        this.skyBackground = true;
-        this.darkBackground = false;
+        this.skyBackground = false;
+        this.darkBackground = true;
 
         // Appearance
         this.defaultAppearance = new CGFappearance(this);

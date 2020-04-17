@@ -10,6 +10,7 @@ class MyVehicle extends CGFobject {
         this.sphere = new MySphere(this.scene, 20, 20);
         this.trapeze = new MyTrapeze(this.scene);
         this.cylinder = new MyCylinder(this.scene, 20);
+        this.cylinderBase = new MySphere(this.scene, 20, 20);
 
         this.angleYY = 0;
         this.speed = 0;
@@ -66,7 +67,19 @@ class MyVehicle extends CGFobject {
         // --------------------------------------
 
         // -------------- CYLINDER --------------
-        this.scene.pushMatrix(); 
+        this.scene.pushMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, -1.2, 0.8);
+        this.scene.scale(0.2, 0.2, 0.2);
+        this.cylinderBase.display(); // base da frente do cilindro
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, -1.2, -0.8);
+        this.scene.scale(0.2, 0.2, 0.2);
+        this.cylinderBase.display(); // base de trás do cilindro
+        this.scene.popMatrix();
 
         this.scene.translate(0, -1.2, -0.8);
         this.scene.scale(0.2, 0.2, 0.2);

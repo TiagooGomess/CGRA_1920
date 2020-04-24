@@ -165,25 +165,16 @@ class MyVehicle extends CGFobject {
         this.angleTrapeze = 0;
     }
 
-    checkAutoPilot() {
-        //this.autoPilotOn = !this.autoPilot;
-        //!this.autoPilotOn ? this.autoPilotOn = true: false;
-
+    checkAutoPilot() {        
         if (this.autoPilotOn)
             this.autoPilotOn = false;
         else
             this.autoPilotOn = true;
-
-        //this.autoPilotOn = true;
-        //if (this.autoPilotOn)
-          //  this.autoPilot();
     }
 
     autoPilot() {
-        if (this.autoPilotOn) {
-            this.speed = 0.05;
-            this.turn(-1);
-        }
-        
+        this.speed = 0.05;
+        this.turn(-1);
     }
+    
 }

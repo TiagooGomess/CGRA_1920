@@ -37,8 +37,8 @@ class MyScene extends CGFscene {
         this.displayCilinder = false;
         this.displaySphere = false;
         this.displayVehicle = true;
-        this.skyBackground = false;
-        this.darkBackground = true;
+        this.skyBackground = true;
+        this.darkBackground = false;
 
         // Appearance
         this.defaultAppearance = new CGFappearance(this);
@@ -147,19 +147,23 @@ class MyScene extends CGFscene {
         */
 
         if (this.gui.isKeyPressed("KeyW")) {
-            this.vehicle.accelerate(this.speedFactor);
+            if (!this.vehicle.autoPilotOn)
+                this.vehicle.accelerate(this.speedFactor);
         }
 
         if (this.gui.isKeyPressed("KeyS")) {
-            this.vehicle.accelerate(-this.speedFactor);
+            if (!this.vehicle.autoPilotOn)
+                this.vehicle.accelerate(-this.speedFactor);
         }
 
         if (this.gui.isKeyPressed("KeyA")) {
-            this.vehicle.turn(2);
+            if (!this.vehicle.autoPilotOn)
+                this.vehicle.turn(2);
         }
 
         if (this.gui.isKeyPressed("KeyD")) {
-            this.vehicle.turn(-2);
+            if (!this.vehicle.autoPilotOn)
+                this.vehicle.turn(-2);
         }
 
         if (this.gui.isKeyPressed("KeyR")) {
@@ -170,7 +174,10 @@ class MyScene extends CGFscene {
             this.vehicle.checkAutoPilot();
         }
 
-        this.vehicle.autoPilot();
+        if (this.vehicle.autoPilotOn)
+            this.vehicle.autoPilot();
+
+        
 
     }
 }

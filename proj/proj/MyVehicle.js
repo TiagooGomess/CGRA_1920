@@ -22,6 +22,7 @@ class MyVehicle extends CGFobject {
         this.anglePropeller = 0;
         this.angleTrapeze = 0;
         this.TRAPEZE_MAX_ANGLE = Math.PI/4;
+        this.autoPilotOn = false;
     }
 
     display() {
@@ -162,5 +163,27 @@ class MyVehicle extends CGFobject {
         this.speed = 0;
         this.anglePropeller = 0;
         this.angleTrapeze = 0;
+    }
+
+    checkAutoPilot() {
+        //this.autoPilotOn = !this.autoPilot;
+        //!this.autoPilotOn ? this.autoPilotOn = true: false;
+
+        if (this.autoPilotOn)
+            this.autoPilotOn = false;
+        else
+            this.autoPilotOn = true;
+
+        //this.autoPilotOn = true;
+        //if (this.autoPilotOn)
+          //  this.autoPilot();
+    }
+
+    autoPilot() {
+        if (this.autoPilotOn) {
+            this.speed = 0.05;
+            this.turn(-1);
+        }
+        
     }
 }

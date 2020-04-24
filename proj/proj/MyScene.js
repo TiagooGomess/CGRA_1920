@@ -166,5 +166,11 @@ class MyScene extends CGFscene {
             this.vehicle.reset();
         }
 
+        if (this.gui.isKeyPressed("KeyP")) {
+            this.vehicle.checkAutoPilot();
+        }
+
+        this.vehicle.autoPilot();
+
     }
 }

@@ -7,7 +7,7 @@ class MyVehicle extends CGFobject {
 	constructor(scene) {
         super(scene);
         //this.pyramid = new MyPyramid(this.scene, 7, 7);
-        this.sphere = new MySphere(this.scene, 20, 20);
+        this.sphere = new MySphere(this.scene, 30, 30);
         this.trapeze = new MyTrapeze(this.scene);
         this.cylinder = new MyCylinder(this.scene, 10);
         this.cylinderBase = new MySphere(this.scene, 10, 10);
@@ -23,6 +23,8 @@ class MyVehicle extends CGFobject {
         this.angleTrapeze = 0;
         this.TRAPEZE_MAX_ANGLE = Math.PI/4;
         this.autoPilotOn = false;
+        //this.centerPosition = [0, 0, 0];
+        //this.angleXX = 0;
     }
 
     display() {
@@ -134,9 +136,15 @@ class MyVehicle extends CGFobject {
     }
 
     update() {
-        this.z += this.speed * Math.cos(this.angleYY*Math.PI/180.0);
-        this.x += this.speed * Math.sin(this.angleYY*Math.PI/180.0);
-        this.anglePropeller += this.speed;
+        if (!this.autoPilotOn) {
+            this.z += this.speed * Math.cos(this.angleYY*Math.PI/180.0);
+            this.x += this.speed * Math.sin(this.angleYY*Math.PI/180.0);
+            this.anglePropeller += this.speed;
+        }
+        else {
+            this.anglePropeller += 0.1;
+        }
+        
     }
 
     turn(val) {
@@ -146,7 +154,7 @@ class MyVehicle extends CGFobject {
     }
     
     accelerate(val) {
-        this.speed += 0.01*val;
+        this.speed += 0.03*val;
         if (this.angleTrapeze > 0) {
             this.angleTrapeze -= 0.01;
         }
@@ -163,15 +171,47 @@ class MyVehicle extends CGFobject {
         this.speed = 0;
         this.anglePropeller = 0;
         this.angleTrapeze = 0;
+        this.autoPilotOn = false;
     }
 
     checkAutoPilot() {
         this.autoPilotOn = this.autoPilotOn ? false : true;
+        if (this.autoPilotOn) {
+            // cálculo do centro de rotação
+            var vehicleDirection = [-Math.sin(this.angleYY*Math.PI/180.0), 0, -Math.cos(this.angleYY*Math.PI/180.0)];
+            var centerDirection = [-vehicleDirection[2], 0, vehicleDirection[0]];
+            var centerDirectionVectorNorm = Math.sqrt(Math.pow(centerDirection[0], 2) + Math.pow(centerDirection[2], 2));
+            var centerDirectionNormalized = [centerDirection[0]/centerDirectionVectorNorm, 0, centerDirection[2]/centerDirectionVectorNorm]
+            this.centerPosition = [this.x + centerDirectionNormalized[0]*5, 0, this.y + centerDirectionNormalized[2]*5];
+
+            // cálculo do angulo entre a direção e o eixo do xx
+            var vehicleDirectionVectorNorm = Math.sqrt(Math.pow(vehicleDirection[0], 2) + Math.pow(vehicleDirection[2], 2));
+            var cosAngleXX = vehicleDirection[0] / vehicleDirectionVectorNorm;
+            this.angleXX = Math.acos(cosAngleXX); // em radianos
+
+            // Definir a posição inicial utilizando o centro e ângulo inicial calculados
+            this.x = this.centerPosition[0];// + 5*Math.cos(this.angleXX);
+            this.z = this.centerPosition[2];// + 5*Math.sin(this.angleXX);
+            this.angleYY = 180*this.angleXX/Math.PI;
+            this.speed = 0;
+        }
     }
 
-    autoPilot() {
-        this.speed = 0.05;
-        this.turn(-1);
+    autoPilot(elapsedTime) { // use elapsed time
+        if (this.autoPilotOn) {
+            
+            this.angleXX -= (elapsedTime*2*Math.PI) / 5000; // uma volta (2*PI) é completada em 5000 ms (5 s)
+
+            // Atualização da posição a cada frame
+            this.x = this.centerPosition[0] + 5*Math.cos(this.angleXX);
+            this.z = this.centerPosition[2] + 5*Math.sin(this.angleXX);
+
+            // Atualização da orientação a cada frame
+            this.angleYY += 180*((elapsedTime*2*Math.PI) / 5000)/Math.PI;
+
+
+        }
+        
     }
 
 }

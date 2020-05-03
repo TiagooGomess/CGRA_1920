@@ -20,7 +20,8 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        this.setUpdatePeriod(100);
+        this.updatePeriod = 1;
+        this.setUpdatePeriod(this.updatePeriod);
         
         this.enableTextures(true);
 
@@ -31,6 +32,7 @@ class MyScene extends CGFscene {
         this.sphere = new MySphere(this, 50, 50);
         this.cube = new MyCubeQuad(this);
         this.vehicle = new MyVehicle(this);
+        this.terrain = new MyTerrain(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -39,6 +41,7 @@ class MyScene extends CGFscene {
         this.displayVehicle = true;
         this.skyBackground = true;
         this.darkBackground = false;
+        this.displayTerrain = true;
 
         // Appearance
         this.defaultAppearance = new CGFappearance(this);
@@ -130,6 +133,13 @@ class MyScene extends CGFscene {
         else if(this.darkBackground)
             this.cube.display();
 
+
+        if (this.displayTerrain) {
+            this.terrain.display();
+        }
+
+        //this.setActiveShader(this.defaultShader);
+
         // ---- END Primitive drawing section
     }
 
@@ -185,7 +195,7 @@ class MyScene extends CGFscene {
         //if (this.vehicle.autoPilotOn)
           //  this.vehicle.autoPilot();
 
-        
+    
 
     }
 }

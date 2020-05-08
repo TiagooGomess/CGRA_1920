@@ -27,7 +27,6 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 8);
         this.cylinder = new MyCylinder(this, 30);
         this.sphere = new MySphere(this, 50, 50);
         this.cube = new MyCubeQuad(this);
@@ -52,15 +51,6 @@ class MyScene extends CGFscene {
         this.defaultAppearance.loadTexture('images/earth.jpg');
         this.defaultAppearance.setTextureWrap('REPEAT','REPEAT');
         this.defaultAppearance.apply();
-
-        // Aircraft Appearance
-        this.aircraftAppearance = new CGFappearance(this);
-        this.aircraftAppearance.setAmbient(0.4, 0.6, 1.0, 1.0);
-        this.aircraftAppearance.setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.aircraftAppearance.setSpecular(0.42, 0.6, 0.8, 1.0);
-        this.aircraftAppearance.setShininess(10.0);
-        this.aircraftAppearance.loadTexture('images/patternAirship.jpg');
-        this.aircraftAppearance.setTextureWrap('REPEAT','REPEAT');
 
         this.speedFactor = 1;
         this.scaleFactor = 1;     
@@ -116,8 +106,6 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        //This sphere does not have defined texture coordinates
-        //this.incompleteSphere.display();
         this.defaultAppearance.apply(); 
 
         var sca = [0.45*this.scaleFactor, 0.0, 0.0, 0.0,
@@ -135,46 +123,20 @@ class MyScene extends CGFscene {
             this.sphere.display();
 
         if (this.displayVehicle) {
-            this.aircraftAppearance.apply();
             this.vehicle.display();
-            this.defaultAppearance.apply();
         }
         
-        if(this.skyBackground)
+        if(this.skyBackground || this.darkBackground)
             this.cube.display();
-        else if(this.darkBackground)
-            this.cube.display();
-
 
         if (this.displayTerrain) {
             this.terrain.display();
         }
 
-        //this.setActiveShader(this.defaultShader);
-
         // ---- END Primitive drawing section
     }
 
     checkKeys() {
-        //var text = "Keys pressed: ";
-        //var keysPressed = false;
-
-        /*
-        // Check for key codes e.g. in https://keycode.info/
-        if (this.gui.isKeyPressed("KeyW")) {
-            text += " W ";
-            keysPressed = true;
-        }
-
-        if (this.gui.isKeyPressed("KeyS")) {
-            text += " S ";
-            keysPressed = true;
-        }
-
-        if (keysPressed) {
-            console.log(text);
-        } 
-        */
 
         if (this.gui.isKeyPressed("KeyW")) {
             if (!this.vehicle.autoPilotOn)
@@ -202,8 +164,7 @@ class MyScene extends CGFscene {
         }
 
         if (this.gui.isKeyPressed("KeyP")) {
-            this.numTimesKeyPIsPressed++;
-            if (this.numTimesKeyPIsPressed == 1)
+            if (this.numTimesKeyPIsPressed++ == 1)
                 this.vehicle.checkAutoPilot();
         }
         else {

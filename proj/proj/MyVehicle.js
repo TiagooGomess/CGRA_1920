@@ -21,23 +21,54 @@ class MyVehicle extends CGFobject {
         this.z = 0;
         this.anglePropeller = 0;
         this.angleTrapeze = 0;
-        this.TRAPEZE_MAX_ANGLE = Math.PI/4;
+        this.TRAPEZE_MAX_ANGLE = Math.PI/8;
         this.autoPilotOn = false;
+
+        // Aircraft Appearance
+        this.aircraftAppearance = new CGFappearance(this.scene);
+        this.aircraftAppearance.setAmbient(0.8, 0.2, 0.2, 1.0);
+        this.aircraftAppearance.setDiffuse(0.8, 0.2, 0.2, 1.0);
+        this.aircraftAppearance.setSpecular(0.8, 0.2, 0.2, 1.0);
+        this.aircraftAppearance.setShininess(5.0);
+        this.aircraftAppearance.loadTexture('images/patternAirship.jpg');
+        this.aircraftAppearance.setTextureWrap('REPEAT','REPEAT');
+
+        // Cylinder Appearence
+        this.cylinderAppearance = new CGFappearance(this.scene);
+        this.cylinderAppearance.setAmbient(150/256, 75/256, 0, 1.0);
+        this.cylinderAppearance.setDiffuse(150/256, 75/256, 0, 1.0);
+        this.cylinderAppearance.setSpecular(150/256, 75/256, 0, 1.0);
+        this.cylinderAppearance.setShininess(5.0);
+        this.cylinderAppearance.loadTexture('images/patternAirship.jpg');
+        this.cylinderAppearance.setTextureWrap('REPEAT','REPEAT');
+
+        // Propeller Appearence
+        this.propellerAppearance = new CGFappearance(this.scene);
+        this.propellerAppearance.setAmbient(0, 0, 0, 1.0);
+        this.propellerAppearance.setDiffuse(0, 0, 0, 1.0);
+        this.propellerAppearance.setSpecular(0, 0, 0, 1.0);
+        this.propellerAppearance.setShininess(5.0);
+        this.propellerAppearance.loadTexture('images/patternAirship.jpg');
+        this.propellerAppearance.setTextureWrap('REPEAT','REPEAT');
+
+        // Trapeze Appearence
+        this.trapezeAppearance = new CGFappearance(this.scene);
+        this.trapezeAppearance.setAmbient(1, 1, 0, 1.0);
+        this.trapezeAppearance.setDiffuse(1, 1, 0, 1.0);
+        this.trapezeAppearance.setSpecular(1, 1, 0, 1.0);
+        this.trapezeAppearance.setShininess(5);
+        this.trapezeAppearance.loadTexture('images/patternAirship.jpg');
+        this.trapezeAppearance.setTextureWrap('REPEAT','REPEAT');
     }
 
     display() {
-        this.scene.setAmbient(1, 1, 1, 1);
+        this.aircraftAppearance.apply();
 
         this.scene.pushMatrix();
 
         // turn and accelerate
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.angleYY*Math.PI/180.0, 0, 1, 0);
-
-        // transformações iniciais, para meter a pirâmide na origem, a opontar no eixo positivo dos zz
-        //this.scene.translate(0, 0, -0.5);
-        //this.scene.rotate(Math.PI/2, 1, 0, 0);
-        //this.pyramid.display();
         
         this.scene.translate(0, 10, 0);
         this.scene.pushMatrix();
@@ -49,6 +80,7 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix(); 
         this.scene.translate(0, 0.7, -2);
         this.scene.rotate(-this.angleTrapeze, 0, 1, 0);
+        this.trapezeAppearance.apply();
         this.trapeze.display(); // trapeze vertical up
         this.scene.popMatrix();
 
@@ -56,18 +88,21 @@ class MyVehicle extends CGFobject {
         this.scene.translate(0, -0.7, -2);
         this.scene.rotate(-this.angleTrapeze, 0, 1, 0);
         this.scene.rotate(Math.PI, 0, 0, 1);
+        this.trapezeAppearance.apply();
         this.trapeze.display(); // trapeze vertical down
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(-0.5, 0, -2);
         this.scene.rotate(Math.PI/2, 0, 0, 1);
+        this.trapezeAppearance.apply();
         this.trapeze.display(); // trapeze horizontal left
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0.5, 0, -2);
         this.scene.rotate(-Math.PI/2, 0, 0, 1);
+        this.trapezeAppearance.apply();
         this.trapeze.display(); // trapeze horizontal right
         this.scene.popMatrix();
         // --------------------------------------
@@ -78,12 +113,14 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0, -1.2, 0.8);
         this.scene.scale(0.2, 0.2, 0.2);
+        this.cylinderAppearance.apply();
         this.cylinderBase.display(); // base da frente do cilindro
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(0, -1.2, -0.8);
         this.scene.scale(0.2, 0.2, 0.2);
+        this.cylinderAppearance.apply();
         this.cylinderBase.display(); // base de trás do cilindro
         this.scene.popMatrix();
 
@@ -107,6 +144,7 @@ class MyVehicle extends CGFobject {
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         this.scene.scale(0.02, 0.02, 0.02);
         this.scene.scale(1, 1, 8);
+        this.propellerAppearance.apply();
         this.propeller.display(); // hélice da direita
         this.scene.popMatrix();
 
@@ -116,6 +154,7 @@ class MyVehicle extends CGFobject {
         this.scene.rotate(Math.PI/2, 0, 1, 0);
         this.scene.scale(0.02, 0.02, 0.02);
         this.scene.scale(1, 1, 8);
+        this.propellerAppearance.apply();
         this.propeller.display(); // hélice da esquerda
         this.scene.popMatrix();
 
@@ -123,13 +162,12 @@ class MyVehicle extends CGFobject {
         this.scene.scale(0.2, 0.2, 0.2);
         this.scene.scale(1, 1, 8);
         this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.cylinderAppearance.apply();
         this.cylinder.display(); // main cylinder
         this.scene.popMatrix();
         // --------------------------------------
 
         this.scene.popMatrix();
-
-        
 
     }
 

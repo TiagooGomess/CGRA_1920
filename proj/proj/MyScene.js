@@ -53,10 +53,17 @@ class MyScene extends CGFscene {
         this.defaultAppearance.setTextureWrap('REPEAT','REPEAT');
         this.defaultAppearance.apply();
 
-        this.speedFactor = 1;
-        this.scaleFactor = 1;
+        // Tap Appearance
+        this.tapAppearance = new CGFappearance(this);
+        this.tapAppearance.setAmbient(0.4, 0.6, 1.0, 1.0);
+        this.tapAppearance.setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.tapAppearance.setSpecular(0.42, 0.6, 0.8, 1.0);
+        this.tapAppearance.setShininess(10.0);
+        this.tapAppearance.loadTexture('images/TapPTS.png');
+        this.tapAppearance.setTextureWrap('REPEAT','REPEAT');
 
-        
+        this.speedFactor = 1;
+        this.scaleFactor = 1;     
         
     }
     initLights() {
@@ -125,8 +132,11 @@ class MyScene extends CGFscene {
         if (this.displaySphere)
             this.sphere.display();
 
-        if (this.displayVehicle)
+        if (this.displayVehicle) {
+            this.tapAppearance.apply();
             this.vehicle.display();
+            this.defaultAppearance.apply();
+        }
         
         if(this.skyBackground)
             this.cube.display();

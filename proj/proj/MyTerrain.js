@@ -14,7 +14,7 @@ class MyTerrain extends CGFobject {
         this.shader.setUniformsValues( {uSampler1: 1});
         this.shader.setUniformsValues( {uSampler2: 2});
 
-        this.plane = new MyPlane(this.scene, 20);
+        this.plane = new MyPlane(this.scene, 20, 0, 1, 0, 1);
     }
 
     display() {

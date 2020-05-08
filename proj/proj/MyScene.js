@@ -192,6 +192,10 @@ class MyScene extends CGFscene {
             this.vehicle.checkAutoPilot();
         }
 
+        // pIspressed()
+        // verificar se é a primeira vez que está a ser pressionada
+        // criar flag
+
         //if (this.vehicle.autoPilotOn)
           //  this.vehicle.autoPilot();
 

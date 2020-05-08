@@ -187,7 +187,7 @@ class MyVehicle extends CGFobject {
             // cálculo do angulo entre a direção e o eixo do xx
             var vehicleDirectionVectorNorm = Math.sqrt(Math.pow(vehicleDirection[0], 2) + Math.pow(vehicleDirection[2], 2));
             var cosAngleXX = vehicleDirection[0] / vehicleDirectionVectorNorm;
-            this.angleXX = Math.acos(cosAngleXX); // em radianos
+            this.angleXX = Math.acos(cosAngleXX); // em radianos // pode haver mais q um angulo
 
             // Definir a posição inicial utilizando o centro e ângulo inicial calculados
             this.x = this.centerPosition[0];// + 5*Math.cos(this.angleXX);

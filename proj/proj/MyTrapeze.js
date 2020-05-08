@@ -15,9 +15,9 @@ class MyTrapeze extends CGFobject {
         this.scene.rotate(Math.PI, 0, 1, 0);
         this.scene.scale(1, 0.4, 0.4);
             
-        this.scene.setAmbient(0, 0, 1, 1);
-        this.scene.setDiffuse(0, 0, 0.3, 1);
-        this.scene.setSpecular(0, 0, 0.3, 1);
+        this.scene.setAmbient(1, 1, 1, 1);
+        this.scene.setDiffuse(0.3, 0.3, 0.3, 1);
+        this.scene.setSpecular(0.3, 0.3, 0.3, 1);
 
         this.scene.pushMatrix();
         this.scene.scale(1, 0.707, 0.707);

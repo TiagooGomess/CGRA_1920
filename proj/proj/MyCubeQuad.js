@@ -23,7 +23,7 @@ class MyCubeQuad extends CGFobject {
 
             // ---
 
-            this.darkBg = new CGFappearance(scene);  
+            this.darkBg = new CGFappearance(scene);
             this.darkBg.setAmbient(1.0, 1.0, 1.0, 1.0);
             this.darkBg.setEmission(1.0, 1.0, 1.0, 1.0); 
 
@@ -37,6 +37,7 @@ class MyCubeQuad extends CGFobject {
 
     }
     display() {
+        this.scene.pushMatrix();
         this.scene.scale(50.0, 50.0, 50.0);
 
         if(this.scene.skyBackground) {
@@ -126,6 +127,8 @@ class MyCubeQuad extends CGFobject {
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.translate(0, 0, 0.5);
         this.quad.display();
+        this.scene.popMatrix();
+
         this.scene.popMatrix();
     }
 }

@@ -23,8 +23,6 @@ class MyVehicle extends CGFobject {
         this.angleTrapeze = 0;
         this.TRAPEZE_MAX_ANGLE = Math.PI/4;
         this.autoPilotOn = false;
-        //this.centerPosition = [0, 0, 0];
-        //this.angleXX = 0;
     }
 
     display() {

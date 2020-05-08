@@ -20,7 +20,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        this.updatePeriod = 1;
+        this.updatePeriod = 50/1000;
         this.setUpdatePeriod(this.updatePeriod);
         
         this.enableTextures(true);
@@ -53,17 +53,19 @@ class MyScene extends CGFscene {
         this.defaultAppearance.setTextureWrap('REPEAT','REPEAT');
         this.defaultAppearance.apply();
 
-        // Tap Appearance
-        this.tapAppearance = new CGFappearance(this);
-        this.tapAppearance.setAmbient(0.4, 0.6, 1.0, 1.0);
-        this.tapAppearance.setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.tapAppearance.setSpecular(0.42, 0.6, 0.8, 1.0);
-        this.tapAppearance.setShininess(10.0);
-        this.tapAppearance.loadTexture('images/TapPTS.png');
-        this.tapAppearance.setTextureWrap('REPEAT','REPEAT');
+        // Aircraft Appearance
+        this.aircraftAppearance = new CGFappearance(this);
+        this.aircraftAppearance.setAmbient(0.4, 0.6, 1.0, 1.0);
+        this.aircraftAppearance.setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.aircraftAppearance.setSpecular(0.42, 0.6, 0.8, 1.0);
+        this.aircraftAppearance.setShininess(10.0);
+        this.aircraftAppearance.loadTexture('images/patternAirship.jpg');
+        this.aircraftAppearance.setTextureWrap('REPEAT','REPEAT');
 
         this.speedFactor = 1;
         this.scaleFactor = 1;     
+
+        this.numTimesKeyPIsPressed = 0;
         
     }
     initLights() {
@@ -73,7 +75,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 30, 15), vec3.fromValues(0, 10, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 20, 15), vec3.fromValues(0, 2, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.4, 0.6, 1.0, 1.0);
@@ -118,9 +120,9 @@ class MyScene extends CGFscene {
         //this.incompleteSphere.display();
         this.defaultAppearance.apply(); 
 
-        var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
-            0.0, this.scaleFactor, 0.0, 0.0,
-            0.0, 0.0, this.scaleFactor, 0.0,
+        var sca = [0.45*this.scaleFactor, 0.0, 0.0, 0.0,
+            0.0, 0.45*this.scaleFactor, 0.0, 0.0,
+            0.0, 0.0, 0.45*this.scaleFactor, 0.0,
             0.0, 0.0, 0.0, 1.0];
 
         this.multMatrix(sca);
@@ -133,7 +135,7 @@ class MyScene extends CGFscene {
             this.sphere.display();
 
         if (this.displayVehicle) {
-            this.tapAppearance.apply();
+            this.aircraftAppearance.apply();
             this.vehicle.display();
             this.defaultAppearance.apply();
         }
@@ -176,40 +178,39 @@ class MyScene extends CGFscene {
 
         if (this.gui.isKeyPressed("KeyW")) {
             if (!this.vehicle.autoPilotOn)
-                this.vehicle.accelerate(this.speedFactor);
+                this.vehicle.accelerate(this.speedFactor*0.5);
         }
 
         if (this.gui.isKeyPressed("KeyS")) {
             if (!this.vehicle.autoPilotOn)
-                this.vehicle.accelerate(-this.speedFactor);
+                this.vehicle.accelerate(-this.speedFactor*0.5);
         }
 
         if (this.gui.isKeyPressed("KeyA")) {
             if (!this.vehicle.autoPilotOn)
-                this.vehicle.turn(4);
+                this.vehicle.turn(3);
         }
 
         if (this.gui.isKeyPressed("KeyD")) {
             if (!this.vehicle.autoPilotOn)
-                this.vehicle.turn(-4);
+                this.vehicle.turn(-3);
         }
 
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
+            this.numTimesKeyPIsPressed = 0;
         }
 
         if (this.gui.isKeyPressed("KeyP")) {
-            this.vehicle.checkAutoPilot();
+            this.numTimesKeyPIsPressed++;
+            if (this.numTimesKeyPIsPressed == 1)
+                this.vehicle.checkAutoPilot();
+        }
+        else {
+            if (this.numTimesKeyPIsPressed > 1)
+                this.numTimesKeyPIsPressed = 0;
         }
 
-        // pIspressed()
-        // verificar se é a primeira vez que está a ser pressionada
-        // criar flag
-
-        //if (this.vehicle.autoPilotOn)
-          //  this.vehicle.autoPilot();
-
-    
 
     }
 }

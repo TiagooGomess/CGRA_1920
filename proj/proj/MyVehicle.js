@@ -68,7 +68,7 @@ class MyVehicle extends CGFobject {
 
         // turn and accelerate
         this.scene.translate(this.x, this.y, this.z);
-        this.scene.rotate(this.angleYY*Math.PI/180.0, 0, 1, 0);
+        this.scene.rotate(this.angleYY*Math.PI/180, 0, 1, 0);
         
         this.scene.translate(0, 10, 0);
         this.scene.pushMatrix();

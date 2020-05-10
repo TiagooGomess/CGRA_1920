@@ -33,6 +33,14 @@ class MyScene extends CGFscene {
         this.vehicle = new MyVehicle(this);
         this.terrain = new MyTerrain(this);
 
+        this.mySupplies = [];
+        for (var i = 0; i < 5; i++) {
+            this.mySupplies.push(new MySupply(this));
+        }
+        this.nSuppliesDelivered = 0;
+
+        this.mySupply = new MySupply(this);
+
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.displayCilinder = false;
@@ -55,7 +63,8 @@ class MyScene extends CGFscene {
         this.speedFactor = 1;
         this.scaleFactor = 1;     
 
-        this.numTimesKeyPIsPressed = 0;
+        this.numTimesPKeyIsPressed = 0;
+        this.numTimesLKeyIsPressed = 0;
         
     }
     initLights() {
@@ -85,6 +94,10 @@ class MyScene extends CGFscene {
         this.lastUpdate = t;
 
         this.vehicle.autoPilot(elapsedTime);
+
+        for (var i = 0; i < 5; i++) {
+            this.mySupplies[i].update(elapsedTime);
+        }
 
     }
     display() {
@@ -133,6 +146,11 @@ class MyScene extends CGFscene {
             this.terrain.display();
         }
 
+        for (var i = 0; i < 5; i++) {
+            this.mySupplies[i].display();
+        }
+
+
         // ---- END Primitive drawing section
     }
 
@@ -160,18 +178,38 @@ class MyScene extends CGFscene {
 
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
-            this.numTimesKeyPIsPressed = 0;
+            this.numTimesPKeyIsPressed = 0;
+            this.numTimesLKeyIsPressed = 0;
+            for (var i = 0; i < 5; i++) {
+                this.mySupplies[i].reset();
+            }
+            this.nSuppliesDelivered = 0;
         }
 
         if (this.gui.isKeyPressed("KeyP")) {
-            this.numTimesKeyPIsPressed++;
-            if (this.numTimesKeyPIsPressed == 1)
+            this.numTimesPKeyIsPressed++;
+            if (this.numTimesPKeyIsPressed == 1)
                 this.vehicle.checkAutoPilot();
         }
         else {
-            if (this.numTimesKeyPIsPressed > 1)
-                this.numTimesKeyPIsPressed = 0;
+            if (this.numTimesPKeyIsPressed > 1)
+                this.numTimesPKeyIsPressed = 0;
         }
+
+        if (this.gui.isKeyPressed("KeyL") && this.nSuppliesDelivered < 5) {
+            this.numTimesLKeyIsPressed++;
+            if (this.numTimesLKeyIsPressed == 1) {
+                this.mySupplies[this.nSuppliesDelivered].drop([this.vehicle.x, 8.5, this.vehicle.z]);
+                this.nSuppliesDelivered++;
+            }       
+        }
+        else {
+            if (this.numTimesLKeyIsPressed > 1)
+                this.numTimesLKeyIsPressed = 0;
+        }
+        
+
+
 
 
     }

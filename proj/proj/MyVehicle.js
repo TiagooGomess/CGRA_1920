@@ -213,38 +213,28 @@ class MyVehicle extends CGFobject {
     checkAutoPilot() {
         this.autoPilotOn = this.autoPilotOn ? false : true;
         if (this.autoPilotOn) {
-            // cálculo do centro de rotação
-            var vehicleDirection = [-Math.sin(this.angleYY*Math.PI/180.0), 0, -Math.cos(this.angleYY*Math.PI/180.0)];
-            var centerDirection = [-vehicleDirection[2], 0, vehicleDirection[0]];
-            var centerDirectionVectorNorm = Math.sqrt(Math.pow(centerDirection[0], 2) + Math.pow(centerDirection[2], 2));
-            var centerDirectionNormalized = [centerDirection[0]/centerDirectionVectorNorm, 0, centerDirection[2]/centerDirectionVectorNorm]
-            this.centerPosition = [this.x + centerDirectionNormalized[0]*5, 0, this.y + centerDirectionNormalized[2]*5];
+            // cálculo do angulo entre a direção do veículo e o eixo do xx
+            this.angleXX = (this.angleYY + 90) * Math.PI/180;
 
-            // cálculo do angulo entre a direção e o eixo do xx
-            var vehicleDirectionVectorNorm = Math.sqrt(Math.pow(vehicleDirection[0], 2) + Math.pow(vehicleDirection[2], 2));
-            var cosAngleXX = vehicleDirection[0] / vehicleDirectionVectorNorm;
-            this.angleXX = Math.acos(cosAngleXX); // em radianos // pode haver mais q um angulo
+            // cálculo do centro de rotação
+            this.centerPosition = [this.x + 5*Math.sin(this.angleXX), 0, this.z + 5*Math.cos(this.angleXX)]
 
             // Definir a posição inicial utilizando o centro e ângulo inicial calculados
-            this.x = this.centerPosition[0];// + 5*Math.cos(this.angleXX);
-            this.z = this.centerPosition[2];// + 5*Math.sin(this.angleXX);
-            this.angleYY = 180*this.angleXX/Math.PI;
+            this.x = this.centerPosition[0] + 5*Math.cos(this.angleYY* Math.PI / 180);
+            this.z = this.centerPosition[2] + 5*Math.sin(this.angleYY* Math.PI / 180);
             this.speed = 0;
         }
     }
 
-    autoPilot(elapsedTime) { // use elapsed time
+    autoPilot(elapsedTime) {
         if (this.autoPilotOn) {
-            
-            this.angleXX -= (elapsedTime*2*Math.PI) / 5000; // uma volta (2*PI) é completada em 5000 ms (5 s)
 
             // Atualização da posição a cada frame
-            this.x = this.centerPosition[0] + 5*Math.cos(this.angleXX);
-            this.z = this.centerPosition[2] + 5*Math.sin(this.angleXX);
-
-            // Atualização da orientação a cada frame
-            this.angleYY += 180*((elapsedTime*2*Math.PI) / 5000)/Math.PI;
-
+            this.x = this.centerPosition[0] - 5*Math.cos(this.angleYY*Math.PI/180);
+            this.z = this.centerPosition[2] + 5*Math.sin(this.angleYY*Math.PI/180);
+            
+            // Atualização da direção
+            this.turn(180*((elapsedTime*2*Math.PI) / 5000)/Math.PI); // uma volta (2*PI) é completada em 5000 ms (5 s)
 
         }
         

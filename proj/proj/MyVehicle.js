@@ -13,6 +13,7 @@ class MyVehicle extends CGFobject {
         this.cylinderBase = new MySphere(this.scene, 10, 10);
         this.propellerSupport = new MySphere(this.scene, 10, 10);
         this.propeller = new MySphere(this.scene, 10, 10);
+        this.flag = new MyFlag(this.scene);
 
         this.angleYY = 0;
         this.speed = 0;
@@ -48,8 +49,6 @@ class MyVehicle extends CGFobject {
         this.propellerAppearance.setDiffuse(0, 0, 0, 1.0);
         this.propellerAppearance.setSpecular(0, 0, 0, 1.0);
         this.propellerAppearance.setShininess(5.0);
-        this.propellerAppearance.loadTexture('images/patternAirship.jpg');
-        this.propellerAppearance.setTextureWrap('REPEAT','REPEAT');
 
         // Trapeze Appearence
         this.trapezeAppearance = new CGFappearance(this.scene);
@@ -74,6 +73,12 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix();
         this.scene.scale(1, 1, 2); // scale the sphere so it looks like an airship
         this.sphere.display();
+        this.scene.popMatrix();
+
+        // -------------- FLAG --------------
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, -3);
+        this.flag.display();
         this.scene.popMatrix();
 
         // -------------- TRAPEZES --------------

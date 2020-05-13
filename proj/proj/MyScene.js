@@ -32,6 +32,7 @@ class MyScene extends CGFscene {
         this.cube = new MyCubeQuad(this);
         this.vehicle = new MyVehicle(this);
         this.terrain = new MyTerrain(this);
+        this.billboard = new MyBillboard(this);
 
         this.mySupplies = [];
         for (var i = 0; i < 5; i++) {
@@ -49,6 +50,7 @@ class MyScene extends CGFscene {
         this.skyBackground = true;
         this.darkBackground = false;
         this.displayTerrain = true;
+        this.displayBillboard = true;
 
         // Appearance
         this.defaultAppearance = new CGFappearance(this);
@@ -145,6 +147,9 @@ class MyScene extends CGFscene {
         for (var i = 0; i < 5; i++) {
             this.mySupplies[i].display();
         }
+
+        if (this.displayBillboard)
+            this.billboard.display();
 
 
         // ---- END Primitive drawing section

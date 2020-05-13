@@ -24,7 +24,8 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'skyBackground').name('Sky Background');
         this.gui.add(this.scene, 'darkBackground').name('Dark Background');
         this.gui.add(this.scene, 'speedFactor', 0.1, 3).name('Speed Factor');
-        this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale Factor');
+        this.gui.add(this.scene, 'scaleFactorVehicle', 0.5, 3).name('Scale Vehicle');
+        this.gui.add(this.scene, 'scaleFactorScene', 0.5, 3).name('Scale Scene');
         this.gui.add(this.scene, 'displayTerrain').name('Display Terrain');
 
         this.initKeys();

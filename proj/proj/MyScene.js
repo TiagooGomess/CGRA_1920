@@ -61,7 +61,8 @@ class MyScene extends CGFscene {
         this.defaultAppearance.apply();
 
         this.speedFactor = 1;
-        this.scaleFactor = 1;     
+        this.scaleFactorVehicle = 1;
+        this.scaleFactorScene = 1;
 
         this.numTimesPKeyIsPressed = 0;
         this.numTimesLKeyIsPressed = 0;
@@ -86,14 +87,13 @@ class MyScene extends CGFscene {
     update(t){
     
         this.checkKeys();
-        this.vehicle.update();
 
         if (this.lastUpdate == 0)
             this.lastUpdate = t;
         var elapsedTime = t - this.lastUpdate;
         this.lastUpdate = t;
 
-        this.vehicle.autoPilot(elapsedTime);
+        this.vehicle.update(elapsedTime, t);
 
         for (var i = 0; i < 5; i++) {
             this.mySupplies[i].update(elapsedTime);
@@ -121,12 +121,7 @@ class MyScene extends CGFscene {
 
         this.defaultAppearance.apply(); 
 
-        var sca = [0.45*this.scaleFactor, 0.0, 0.0, 0.0,
-            0.0, 0.45*this.scaleFactor, 0.0, 0.0,
-            0.0, 0.0, 0.45*this.scaleFactor, 0.0,
-            0.0, 0.0, 0.0, 1.0];
-
-        this.multMatrix(sca);
+        this.scale(this.scaleFactorScene*0.45, this.scaleFactorScene*0.45, this.scaleFactorScene*0.45);
         
         if (this.displayCilinder)
             this.cylinder.display();
@@ -136,7 +131,8 @@ class MyScene extends CGFscene {
             this.sphere.display();
 
         if (this.displayVehicle) {
-            this.vehicle.display();
+            this.vehicle.displayScaled(this.scaleFactorVehicle);
+            
         }
         
         if(this.skyBackground || this.darkBackground)
@@ -207,10 +203,6 @@ class MyScene extends CGFscene {
             if (this.numTimesLKeyIsPressed > 1)
                 this.numTimesLKeyIsPressed = 0;
         }
-        
-
-
-
 
     }
 }

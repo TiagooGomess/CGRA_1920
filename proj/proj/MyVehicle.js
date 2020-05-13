@@ -6,7 +6,7 @@
 class MyVehicle extends CGFobject {
 	constructor(scene) {
         super(scene);
-        //this.pyramid = new MyPyramid(this.scene, 7, 7);
+        
         this.sphere = new MySphere(this.scene, 30, 30);
         this.trapeze = new MyTrapeze(this.scene);
         this.cylinder = new MyCylinder(this.scene, 10);
@@ -20,6 +20,7 @@ class MyVehicle extends CGFobject {
         this.x = 0;
         this.y = 0;
         this.z = 0;
+        this.height = 10;
         this.anglePropeller = 0;
         this.angleTrapeze = 0;
         this.TRAPEZE_MAX_ANGLE = Math.PI/8;
@@ -60,6 +61,15 @@ class MyVehicle extends CGFobject {
         this.trapezeAppearance.setTextureWrap('REPEAT','REPEAT');
     }
 
+    displayScaled(scaleFactor) {
+        this.scene.pushMatrix();
+        this.scene.translate(this.x, this.height, this.z);
+        this.scene.scale(scaleFactor, scaleFactor, scaleFactor);
+        this.scene.translate(-this.x, -this.height, -this.z);
+        this.display();
+        this.scene.popMatrix();
+    }
+
     display() {
         this.aircraftAppearance.apply();
 
@@ -69,7 +79,7 @@ class MyVehicle extends CGFobject {
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.angleYY*Math.PI/180, 0, 1, 0);
         
-        this.scene.translate(0, 10, 0);
+        this.scene.translate(0, this.height, 0);
         this.scene.pushMatrix();
         this.scene.scale(1, 1, 2); // scale the sphere so it looks like an airship
         this.sphere.display();
@@ -173,18 +183,20 @@ class MyVehicle extends CGFobject {
         // --------------------------------------
 
         this.scene.popMatrix();
-
     }
 
-    update() {
+    update(elapsedTime, t) {
         if (!this.autoPilotOn) {
             this.z += this.speed * Math.cos(this.angleYY*Math.PI/180.0);
             this.x += this.speed * Math.sin(this.angleYY*Math.PI/180.0);
             this.anglePropeller += this.speed;
+            this.flag.update(t / 500 % 100, Math.abs(this.speed));
         }
         else {
             this.anglePropeller += 0.1;
+            this.flag.update(t / 500 % 100, 0.5);
         }
+        this.autoPilot(elapsedTime);
         
     }
 
@@ -242,7 +254,6 @@ class MyVehicle extends CGFobject {
             this.turn(180*((elapsedTime*2*Math.PI) / 5000)/Math.PI); // uma volta (2*PI) é completada em 5000 ms (5 s)
 
         }
-        
     }
 
 }

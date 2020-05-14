@@ -97,9 +97,13 @@ class MyScene extends CGFscene {
 
         this.vehicle.update(elapsedTime, t);
 
+        var numLandedSupplies = 0;
         for (var i = 0; i < 5; i++) {
             this.mySupplies[i].update(elapsedTime);
+            if (this.mySupplies[i].state == SupplyStates.LANDED)
+                numLandedSupplies++;
         }
+        this.billboard.update(numLandedSupplies);
 
     }
     display() {
@@ -185,6 +189,7 @@ class MyScene extends CGFscene {
                 this.mySupplies[i].reset();
             }
             this.nSuppliesDelivered = 0;
+            this.billboard.reset();
         }
 
         if (this.gui.isKeyPressed("KeyP")) {
@@ -202,6 +207,7 @@ class MyScene extends CGFscene {
             if (this.numTimesLKeyIsPressed == 1) {
                 this.mySupplies[this.nSuppliesDelivered].drop([this.vehicle.x, 8.5, this.vehicle.z]);
                 this.nSuppliesDelivered++;
+                this.billboard.update();
             }       
         }
         else {

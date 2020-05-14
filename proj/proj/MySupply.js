@@ -18,7 +18,7 @@ class MySupply extends CGFobject {
 
         this.state=SupplyStates.INACTIVE;
 
-        this.position = [0.1, 0.1, 0.1];
+        this.position = [0, 10, 0];
     }
 
     initMaterials() {
@@ -44,7 +44,7 @@ class MySupply extends CGFobject {
     }
 
     land() {
-        if (this.position[1] <= 0) {
+        if (this.position[1] <= 0.3) {
             this.state = SupplyStates.LANDED;
             this.position[1] = 0;
         }
@@ -189,6 +189,6 @@ class MySupply extends CGFobject {
 
     reset() {
         this.state = SupplyStates.INACTIVE;
-        this.position = [0.1, 0.1, 0.1];
+        this.position = [0, 10, 0];
     }
 }
